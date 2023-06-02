@@ -5,6 +5,11 @@ from typing import List, Optional
 from jolted_mod import create_notebook_module, create_wiki_module, create_curriculum
 from fastapi.middleware.cors import CORSMiddleware
 
+from jolted_api.routes import notebook_router
+from jolted_api.routes import wiki_module_router
+
+from jolted_api.database import setup_database
+
 app = FastAPI()
 
 origins = [
@@ -19,26 +24,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-class CurriculumData(BaseModel):
-    topics: List[str]
-    subtopics: List[str]
-
-
-@app.post("/create_notebook_module")
-async def api_create_notebook_module(request: Request):
-    body = await request.json()
-    return await create_notebook_module(**body)
+app.include_router(notebook_router, prefix="/notebook", tags=["notebook"])
+app.include_router(wiki_module_router,
+                   prefix="/wiki_module", tags=["wiki_module"])
 
 
-@app.post("/create_wiki_module")
-async def api_create_wiki_module(request: Request):
-    body = await request.json()
-    return await create_wiki_module(**body)
+@app.on_event("startup")
+async def startup_event():
+    await setup_database()
 
 
-@app.post("/create_curriculum")
-async def api_create_curriculum(curriculum_data: CurriculumData, identity: Optional[str] = 'Professor of Computer Science',
-                                target_audience: Optional[str] = 'first year computer science students',
-                                model: Optional[str] = 'gpt-3.5-turbo'):
-    return await create_curriculum(curriculum_data.dict(), identity, target_audience, model)
+
+
