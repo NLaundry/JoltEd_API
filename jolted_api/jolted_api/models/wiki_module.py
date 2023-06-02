@@ -12,3 +12,11 @@ class WikiModule(BaseModel):
 
 class WikiModuleInDB(Document, WikiModule):
     pass
+
+
+class WikiModuleCreate(BaseModel):
+    # used for creating a new wiki module endpoint
+    topic: str
+    identity: str
+    target_audience: str
+    model: str
