@@ -1,14 +1,8 @@
 from fastapi import FastAPI
-from starlette.requests import Request
-from pydantic import BaseModel
-from typing import List, Optional
-from jolted_mod import create_notebook_module, create_wiki_module, create_curriculum
 from fastapi.middleware.cors import CORSMiddleware
 
-from jolted_api.routes import notebook_router
-from jolted_api.routes import wiki_module_router
-
 from jolted_api.database import setup_database
+from jolted_api.routes import notebook_router, wiki_module_router
 
 app = FastAPI()
 
@@ -24,15 +18,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 app.include_router(notebook_router, prefix="/notebook", tags=["notebook"])
-app.include_router(wiki_module_router,
-                   prefix="/wiki_module", tags=["wiki_module"])
+app.include_router(wiki_module_router, prefix="/wiki_module", tags=["wiki_module"])
 
 
 @app.on_event("startup")
-async def startup_event():
+async def startup_event() -> None:
+    """This function is an asynchronous event handler for the "startup" event in FastAPI.
+
+    When the FastAPI application starts up, this function will be called automatically.
+    It initializes the database by calling the setup_database function asynchronously.
+
+    Returns:
+        None
+    """
     await setup_database()
-
-
-
-

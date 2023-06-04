@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "jolted_api"}]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.11"
 fastapi = "^0.95.2"
 joltedmod = "^0.1.0"
 uvicorn = "^0.22.0"
@@ -23,3 +23,30 @@ build-backend = "poetry.core.masonry.api"
 dev-server = "uvicorn jolted_api.api:app --reload"
 prod-server = "uvicorn jolted_api.api:app"
 server = 'uvicorn:jolted_api.api:app --reload'
+
+[tool.ruff]
+target-version = "py311"
+required-version = "0.0.270"
+select = [
+  "E",   # pycodestyle
+  "F",   # pyflakes
+  "UP",  # pyupgrade
+  "D",   # pydocstyle
+  "C90",
+  "I",
+  "N",
+  "ANN",
+  "ASYNC",
+  "C4",
+  "Q",
+  "RET",
+  "SIM",
+  "PTH",
+  "PLR",
+  "RUF",
+  "TCH"
+]
+ignore = ["E501", "BUFNR55"]
+
+[tool.ruff.pydocstyle]
+convention = "google"

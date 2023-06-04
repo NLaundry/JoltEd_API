@@ -1,17 +1,18 @@
-from pydantic import BaseModel, Field
-from beanie import Document
 from typing import Optional
+
+from beanie import Document
+from pydantic import BaseModel, Field
+
 from .types import PyObjectId
 
 
-class WikiModule(BaseModel):
+class WikiModule(Document, BaseModel):
     id: Optional[PyObjectId] = Field(default_factory=PyObjectId, alias="_id")
     name: str
     content: str
 
-
-class WikiModuleInDB(Document, WikiModule):
-    pass
+    class Settings:
+        validate_on_save = True
 
 
 class WikiModuleCreate(BaseModel):
