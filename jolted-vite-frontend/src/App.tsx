@@ -1,31 +1,29 @@
 import Editor from './components/Editor';
-import { createNotebookModule, createWikiModule, ModuleData } from './services/jolted_api';
+import WikiModuleCreateForm from './components/WikiModuleCreateForm';
+import { createWikiModule } from './services/wikiModuleService.ts'
+import { WikiModule, WikiModuleCreate } from './types/index.ts';
+import WikiModuleContext from './services/wikiModuleContextService.ts'
+import { useState, useEffect } from 'react';
 import './App.css'
-
-async function createModule() {
-    const data: ModuleData = {
-        topic: 'React',
-        identity: 'professor of computer science',
-        target_audience: 'first year computer science students',
-        model: 'gpt-3.5-turbo',
-    };
-
-    try {
-        console.log(data)
-        const wikiModule = await createWikiModule(data);
-        console.log('Created wiki module:', wikiModule);
-    } catch (error) {
-        console.error('Error creating module:', error);
-    }
-}
 
 function App() {
 
+    const [createdWikiModule, setCreatedWikiModule] = useState<WikiModule | null>(null);
+
+    useEffect(() => {
+        if (createdWikiModule) {
+            console.log('Created wiki module:', createdWikiModule);
+        }
+    }, [createdWikiModule]);
+
+
     return (
-        <div className="container mx-auto">
-            <button onClick={createModule}>Create Module</button>
-            <Editor />
-        </div>
+        <WikiModuleContext.Provider value={{ createdWikiModule, setCreatedWikiModule }}>
+            <div className="container mx-auto">
+                <WikiModuleCreateForm />
+                <Editor wikiModule={createdWikiModule} />
+            </div>
+        </WikiModuleContext.Provider>
     )
 }
 

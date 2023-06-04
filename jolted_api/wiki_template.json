@@ -2,31 +2,31 @@
   "blocks": [
     {
       "type": "SeedBlock",
-      "identity": "cs prof",
-      "topic": "intro to programming",
-      "target_audience": "cs student"
+      "identity": "cs professor",
+      "topic": " intro programming",
+      "target_audience": "cs students"
     },
     {
       "type": "ExplanatoryBlock",
-      "topic": "intro to programming",
+      "topic": " intro programming",
       "method_of_teaching": "a metaphor without code",
-      "target_audience": "cs student",
+      "target_audience": "cs students",
       "context": null,
       "cell_type": "MARKDOWN"
     },
     {
       "type": "ExplanatoryBlock",
-      "topic": "intro to programming",
+      "topic": " intro programming",
       "method_of_teaching": "a concrete code example that's thoroughly commented",
-      "target_audience": "cs student",
+      "target_audience": "cs students",
       "context": null,
       "cell_type": "MARKDOWN"
     },
     {
       "type": "ExplanatoryBlock",
-      "topic": "intro to programming",
+      "topic": " intro programming",
       "method_of_teaching": "3 example use cases",
-      "target_audience": "cs student",
+      "target_audience": "cs students",
       "context": null,
       "cell_type": "MARKDOWN"
     },
@@ -34,8 +34,8 @@
       "type": "KnowledgeTestingBlock",
       "n": 5,
       "question_type": "multiple choice",
-      "topic": "intro to programming",
-      "target_audience": "cs student",
+      "topic": " intro programming",
+      "target_audience": "cs students",
       "context": null,
       "cell_type": "MARKDOWN"
     }
